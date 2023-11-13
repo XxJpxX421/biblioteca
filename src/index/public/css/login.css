@@ -1,0 +1,133 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    overflow: hidden;
+    background: linear-gradient(45deg, #5d4e6d, #57467b, #7e6b8b);
+    animation: slideIn 2s ease-in-out, gradientChange 10s infinite linear;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes gradientChange {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+form {
+    background-color: #7e6b8b;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    width: 300px;
+    text-align: center;
+    color: #fff;
+    animation: slideIn 0.5s ease-in-out;
+}
+
+input {
+    width: calc(100% - 20px);
+    padding: 15px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 8px;
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+
+input:focus {
+    background-color: #fff;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+    transform: scale(1.02);
+}
+
+.button {
+    background-color: #57467b;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: calc(100% - 20px);
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover {
+    background-color: #41335a;
+    transform: scale(1.05);
+}
+
+.registro {
+    text-decoration: none;
+    color: #f3cdf7;
+    display: block;
+    margin-top: 10px;
+    text-align: center;
+    transition: color 0.3s;
+}
+
+.registro:hover {
+    color: #f280f4;
+}
+.adm {
+    background-color: #7552c7;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: calc(100% - 20px);
+    max-width: 120px;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+    position: absolute;
+    top: 650px;
+    right: 80px;
+    overflow: hidden;
+}
+
+.adm:hover {
+    background-color: #300b70;
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+    animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-15px);
+    }
+    60% {
+        transform: translateY(-10px);
+    }
+}
+a {
+    color: #fff;
+    text-decoration: none;
+}
