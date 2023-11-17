@@ -47,6 +47,7 @@ form {
     text-align: center;
     color: #fff;
     animation: slideIn 0.5s ease-in-out;
+    flex-direction: column;
 }
 
 input {
@@ -132,4 +133,14 @@ input:focus {
 a {
     color: #fff;
     text-decoration: none;
+}
+.error-message {
+    color: red;
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    top: 180px;
+    position: absolute;
 }

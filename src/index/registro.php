@@ -9,9 +9,20 @@ if (isset($_POST['nome']) &&
     isset($_POST['email']) &&
     isset($_POST['senha'])) 
 {
-    $loginController->criarLogin($_POST['nome'], $_POST['email'], $_POST['senha']);
-}
+    $nome = $_POST['nome'];
+    $email = $_POST['email'];
+    $senha = $_POST['senha'];
 
+    // Check if the email already exists
+    if ($loginController->nomeExists($nome)) {
+        echo '<div class="error-message">
+                O nome já existe. Por favor, escolha outro.
+            </div>';
+    } else {
+        // Email does not exist, proceed with registration
+        $loginController->criarLogin($nome, $email, $senha);
+    }
+}
 ?>
 
 
@@ -23,16 +34,17 @@ if (isset($_POST['nome']) &&
 	<meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="public/css/registro.css">
     </head>
-<body>
-	<?php
+<body>	
+    <?php
                     if(isset($_SESSION['nao_autenticado'])):
                     ?>
-                      
                     <?php
                     endif;
                     unset($_SESSION['nao_autenticado']);
                     ?>
-			<form  method="POST">
+		
+    <form  method="POST">
+
             <input type="text" name="nome" placeholder="Nome de Usuário" required>
             <input type="email" name="email" placeholder="E-mail" required>
             <input type="password" name="senha" placeholder="Senha" required>

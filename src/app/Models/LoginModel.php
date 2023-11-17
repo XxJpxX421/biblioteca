@@ -7,10 +7,27 @@ class LoginModel {
     }
 
     public function criarLogin($nome, $email, $senha) {
-        $sql = "INSERT INTO usuarios (nome, email, senha) 
-        VALUES (?, ?, ?)";
+        if ($this->nomeExists($nome)) {
+            return false;
+        }
+
+        // If email does not exist, proceed with the insertion
+        $sql = "INSERT INTO usuarios (nome, email, senha) VALUES (?, ?, ?)";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([$nome, $email, $senha]);
+        
+        // Return true to indicate successful registration
+        return true;
+    }
+
+    public function nomeExists($nome) {
+        $sql = "SELECT COUNT(*) FROM usuarios WHERE nome = ?";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([$nome]);
+
+        $count = $stmt->fetchColumn();
+
+        return $count > 0;
     }
 
     public function listarLogins() {

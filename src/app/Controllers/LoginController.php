@@ -10,7 +10,16 @@ class LoginController {
     }
 
     public function criarLogin($nome, $email, $senha) {
+        if ($this->loginModel->nomeExists($nome)) {
         $this->loginModel->criarLogin($nome, $email, $senha);
+        $_SESSION['nome_exists'] = true;
+        return;
+        }
+        $this->loginModel->criarLogin($nome, $email, $senha);
+    }
+
+    public function nomeExists($nome) {
+        return $this->loginModel->nomeExists($nome);
     }
 
     public function listarLogins() {

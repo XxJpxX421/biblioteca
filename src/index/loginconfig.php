@@ -3,8 +3,8 @@ session_start();
 include '../config/config.php';
 
 if(empty($_POST['nome']) || empty($_POST['senha'])) {
-	header('Location: login.php');
-	exit();
+    header('Location: login.php');
+    exit();
 }
 
 $usuario = $_POST['nome'];
@@ -12,7 +12,7 @@ $senha = $_POST['senha'];
 
 try {
     // Consulta preparada para evitar injeção de SQL
-    $query = "SELECT nome FROM usuarios WHERE nome = :usuario AND senha = :senha";
+    $query = "SELECT nome, email FROM usuarios WHERE (nome = :usuario OR email = :usuario) AND senha = :senha";
 
     $stmt = $pdo->prepare($query);
     $stmt->bindParam(':usuario', $usuario);
@@ -23,7 +23,13 @@ try {
     $row = $stmt->rowCount();
 
     if($row == 1) {
-        $_SESSION['nome'] = $usuario;
+        // Retrieve user information
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // Set the appropriate session variable (either 'nome' or 'email')
+        $_SESSION['nome'] = $user['nome'];
+        $_SESSION['email'] = $user['email'];
+
         header('Location: index.php');
         exit();
     } else {
@@ -35,6 +41,4 @@ try {
     // Em caso de erro de conexão ou consulta, você pode lidar com a exceção aqui
     echo "Erro: " . $e->getMessage();
 }
-
 ?>
-
