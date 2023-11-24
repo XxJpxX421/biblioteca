@@ -12,7 +12,7 @@ if (isset($_SESSION['nome_arquivo'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Sua Biblioteca</title>
-    <link rel="stylesheet" href="public/css/index.css">
+    <link rel="stylesheet" href="public/css/pesquisa.css">
     <link rel="shortcut icon" href="public/assets/Black_White_Minimalist_Letter_JM_Logo__2_-removebg-preview.png" type="image/x-icon">
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
@@ -81,12 +81,14 @@ if (isset($_SESSION['nome_arquivo'])) {
     <div class= "barra"><marquee scrollamount= "40"><span>
 Compre livros agora!!</span></marquee>
     </div>
+    <input type="text" id="searchInput" class= "pesquisa" placeholder="Digite o nome...">
     <div class="sessoes">
             <?php include_once "livros.php"; ?>
         </div>
     </div>
 
     <script src="public/js/user.js"></script>
+    <script src="public/js/pesquisa.js"></script>
 </body>
 </html>
 

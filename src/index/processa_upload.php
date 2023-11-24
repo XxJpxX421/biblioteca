@@ -1,4 +1,5 @@
 <?php
+session_start();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Verifica se o arquivo foi enviado sem erros
     if (isset($_FILES["imagem"]) && $_FILES["imagem"]["error"] == 0) {
@@ -7,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Limpa o nome do usuário removendo espaços e caracteres especiais
         $nome_usuario_limpo = preg_replace("/[^a-zA-Z0-9]+/", "", $nome_usuario);
-
+        
         // Cria um nome único para a imagem usando o nome do usuário
         $nome_arquivo_base = $nome_usuario_limpo . "_" . uniqid();
         $nome_arquivo_completo = $nome_arquivo_base . "_" . $_FILES["imagem"]["name"];
@@ -24,8 +25,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Move o arquivo para o diretório desejado com o nome único
         move_uploaded_file($nome_temporario, "uploads/" . $nome_arquivo_completo);
 
+        
         // Associa o nome do arquivo ao usuário na sessão
-        $_SESSION['nome'] = $nome_arquivo_completo;
+        $_SESSION['nome_arquivo'] = $nome_arquivo_completo;
 
         // Redireciona para a página que exibirá apenas a imagem enviada
         header("Location: index.php");

@@ -1,18 +1,48 @@
 <?php
- include 'verifica_login.php';
+include '../config/config.php';
+include 'verifica_login.php';
 $nome_arquivo = "";
 if (isset($_SESSION['nome_arquivo'])) {
     $nome_arquivo = $_SESSION['nome_arquivo'];
     $caminho_arquivo = "uploads/" . $nome_arquivo;
 }
+$idLivro = $_SESSION['id_livro'];
+// Consultar livros emprestados pelo usuário
+$sqlLivrosEmprestados = "SELECT livros.nome_l, emprestimos.dia_d, emprestimos.id_livro
+                         FROM emprestimos
+                         INNER JOIN livros ON emprestimos.id_livro = livros.id
+                         WHERE emprestimos.id_usuario = ? AND emprestimos.status = 'em aberto'";
+
+try {
+    $stmtLivrosEmprestados = $pdo->prepare($sqlLivrosEmprestados);
+    $stmtLivrosEmprestados->execute([$idLivro]);
+    $livrosEmprestados = $stmtLivrosEmprestados->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    echo "Erro ao recuperar livros emprestados: " . $e->getMessage();
+}
+
+// Consultar histórico de empréstimos do usuário
+$sqlHistoricoEmprestimos = "SELECT livros.nome_l, historico.data_registro, historico.data_devolucao
+                            FROM historico
+                            INNER JOIN livros ON historico.id_livro = livros.id
+                            WHERE historico.id_usuario = ?";
+
+try {
+    $stmtHistoricoEmprestimos = $pdo->prepare($sqlHistoricoEmprestimos);
+    $stmtHistoricoEmprestimos->execute([$_SESSION['id']]);
+    $historicoEmprestimos = $stmtHistoricoEmprestimos->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    echo "Erro ao recuperar histórico de empréstimos: " . $e->getMessage();
+}
 ?>
-        <!DOCTYPE html>
+
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Sua Biblioteca</title>
-    <link rel="stylesheet" href="public/css/index.css">
+    <link rel="stylesheet" href="public/css/emprestimos.css">
     <link rel="shortcut icon" href="public/assets/Black_White_Minimalist_Letter_JM_Logo__2_-removebg-preview.png" type="image/x-icon">
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
@@ -75,19 +105,51 @@ if (isset($_SESSION['nome_arquivo'])) {
         </ul>
       </nav>
    </aside>
-
-
    <div class="main-content">
     <div class= "barra"><marquee scrollamount= "40"><span>
 Compre livros agora!!</span></marquee>
     </div>
-    <div class="sessoes">
-            <?php include_once "livros.php"; ?>
-        </div>
-    </div>
 
-    <script src="public/js/user.js"></script>
+<h2>Livros Emprestados</h2>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Título do Livro</th>
+        <th>Data para devolver</th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($livrosEmprestados as $livro): ?>
+        <tr>
+            <td><?= $livro['nome_l'] ?></td>
+            <td><?= $livro['dia_d'] ?></td>
+        </tr>
+    <?php endforeach; ?>
+    </tbody>
+</table>
+
+<h2>Histórico de Empréstimos</h2>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Título do Livro</th>
+        <th>Data de Empréstimo</th>
+        <th>Data de Devolução</th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($historicoEmprestimos as $historico): ?>
+        <tr>
+            <td><?= $historico['nome_l'] ?></td>
+            <td><?= $historico['data_registro'] ?></td>
+            <td><?= $historico['data_devolucao'] ?></td>
+        </tr>
+    <?php endforeach; ?>
+    </tbody>
+</table>
+</div>
+
+<script src="public/js/user.js"></script>
 </body>
 </html>
-
 

@@ -12,7 +12,7 @@ $senha = $_POST['senha'];
 
 try {
     // Consulta preparada para evitar injeção de SQL
-    $query = "SELECT nome, email FROM usuarios WHERE (nome = :usuario OR email = :usuario) AND senha = :senha";
+    $query = "SELECT * FROM usuarios WHERE (nome = :usuario OR email = :usuario) AND senha = :senha";
 
     $stmt = $pdo->prepare($query);
     $stmt->bindParam(':usuario', $usuario);
@@ -29,6 +29,7 @@ try {
         // Set the appropriate session variable (either 'nome' or 'email')
         $_SESSION['nome'] = $user['nome'];
         $_SESSION['email'] = $user['email'];
+        $_SESSION['id'] = $user['id'];
 
         header('Location: index.php');
         exit();

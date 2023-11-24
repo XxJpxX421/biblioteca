@@ -484,3 +484,18 @@ body {
   ::-webkit-scrollbar-thumb:hover {
     background-color: #555; /* Cor do polegar quando hover */
   }
+  .pesquisa {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 300px;
+  margin-bottom: 20px;
+  transition: border-color 0.3s ease-in-out;
+  }
+  .pesquisa:focus {
+    border-color: #007bff;
+    outline: none;
+  }
