@@ -325,7 +325,7 @@ body {
                     padding: 20px;
                     box-sizing: border-box;
                     z-index: 2;
-                    height: 100vh;
+                    height: auto;
                 }
                 
                 nav ul {
@@ -407,6 +407,7 @@ body {
                     z-index: 1;  
                     background-color: #463a53; /* Background color */
                     margin-left: 20px;
+                    margin-right: 20px;
                 }
                 .barra marquee span {
                     display: inline-block;

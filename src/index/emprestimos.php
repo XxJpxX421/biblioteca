@@ -6,19 +6,19 @@ if (isset($_SESSION['nome_arquivo'])) {
     $nome_arquivo = $_SESSION['nome_arquivo'];
     $caminho_arquivo = "uploads/" . $nome_arquivo;
 }
-$idLivro = $_SESSION['id_livro'];
+
 // Consultar livros emprestados pelo usuário
 $sqlLivrosEmprestados = "SELECT livros.nome_l, emprestimos.dia_d, emprestimos.id_livro
-                         FROM emprestimos
-                         INNER JOIN livros ON emprestimos.id_livro = livros.id
-                         WHERE emprestimos.id_usuario = ? AND emprestimos.status = 'em aberto'";
+FROM emprestimos
+INNER JOIN livros ON emprestimos.id_livro = livros.id
+WHERE emprestimos.id_usuario = ? AND emprestimos.status = 'em aberto'";
 
 try {
-    $stmtLivrosEmprestados = $pdo->prepare($sqlLivrosEmprestados);
-    $stmtLivrosEmprestados->execute([$idLivro]);
-    $livrosEmprestados = $stmtLivrosEmprestados->fetchAll(PDO::FETCH_ASSOC);
+$stmtLivrosEmprestados = $pdo->prepare($sqlLivrosEmprestados);
+$stmtLivrosEmprestados->execute([$_SESSION['id']]);  // Use $_SESSION['id'] instead of $idLivro
+$livrosEmprestados = $stmtLivrosEmprestados->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
-    echo "Erro ao recuperar livros emprestados: " . $e->getMessage();
+echo "Erro ao recuperar livros emprestados: " . $e->getMessage();
 }
 
 // Consultar histórico de empréstimos do usuário
@@ -122,7 +122,7 @@ Compre livros agora!!</span></marquee>
     <?php foreach ($livrosEmprestados as $livro): ?>
         <tr>
             <td><?= $livro['nome_l'] ?></td>
-            <td><?= $livro['dia_d'] ?></td>
+            <td><?= date('d/m/Y', strtotime($livro['dia_d'])) ?></td>
         </tr>
     <?php endforeach; ?>
     </tbody>
@@ -141,8 +141,8 @@ Compre livros agora!!</span></marquee>
     <?php foreach ($historicoEmprestimos as $historico): ?>
         <tr>
             <td><?= $historico['nome_l'] ?></td>
-            <td><?= $historico['data_registro'] ?></td>
-            <td><?= $historico['data_devolucao'] ?></td>
+            <td><?= date('d/m/Y', strtotime($historico['data_registro'])) ?></td>
+<td><?= date('d/m/Y', strtotime($historico['data_devolucao'])) ?></td>
         </tr>
     <?php endforeach; ?>
     </tbody>

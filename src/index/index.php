@@ -55,7 +55,7 @@ if (isset($_SESSION['nome_arquivo'])) {
             </div>
 
             <div class="logo-faq">
-                <a href="../faq/index.php"><ion-icon name="chatbox-ellipses-outline"></ion-icon></a>
+                <a href="chat.php"><ion-icon name="chatbox-ellipses-outline"></ion-icon></a>
             </div>
         
     </div>
@@ -79,7 +79,7 @@ if (isset($_SESSION['nome_arquivo'])) {
 
    <div class="main-content">
     <div class= "barra"><marquee scrollamount= "40"><span>
-Compre livros agora!!</span></marquee>
+Empreste livros agora!!</span></marquee>
     </div>
     <div class="sessoes">
             <?php include_once "livros.php"; ?>

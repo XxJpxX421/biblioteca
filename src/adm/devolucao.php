@@ -12,10 +12,11 @@ $resultUsuariosComLivros = $stmtUsuariosComLivros->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Devolver Livro (Admin)</title>
+    <link rel="stylesheet" href="public/css/devolucao.css">
+    <title>Devolver Livro</title>
 </head>
 <body>
-    <h2>Devolver Livro (Admin)</h2>
+    <h2>Devolução de Livro</h2>
     <form action="processar_devolucao.php" method="post">
         <label for="usuarioId">Selecione o usuário:</label>
         <select name="usuarioId" required>
@@ -28,5 +29,6 @@ $resultUsuariosComLivros = $stmtUsuariosComLivros->fetchAll(PDO::FETCH_ASSOC);
         <br>
         <input type="submit" value="Marcar como Devolvido">
     </form>
+    <a class= "voltar" href="index.php">Voltar</a>
 </body>
 </html>

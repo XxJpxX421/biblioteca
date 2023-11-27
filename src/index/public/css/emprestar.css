@@ -1,0 +1,29 @@
+body {
+    font-family: 'Arial', sans-serif;
+}
+
+.mensagem-sucesso {
+    color: green;
+    font-weight: bold;
+}
+
+.mensagem-erro {
+    color: red;
+    font-weight: bold;
+}
+
+.link-voltar {
+    text-decoration: none;
+    color: #3498db; /* Cor azul, como solicitado */
+    font-weight: bold;
+    margin-top: 10px; /* Espaço acima do link */
+    display: inline-block;
+    border: 1px solid #3498db; /* Adiciona uma borda ao redor do link */
+    padding: 5px 10px; /* Adiciona espaço interno ao redor do link */
+    border-radius: 5px; /* Adiciona cantos arredondados ao link */
+}
+
+.link-voltar:hover {
+    background-color: #3498db; /* Cor de fundo ao passar o mouse */
+    color: #fff; /* Cor do texto ao passar o mouse */
+}

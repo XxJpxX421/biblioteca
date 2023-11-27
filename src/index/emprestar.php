@@ -1,7 +1,16 @@
 <?php
 session_start();
 include '../config/config.php';
-
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="public/css/emprestar.css">
+</head>
+<body>
+    <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Processar o empréstimo quando o formulário for enviado
     $livroId = $_POST['livroId']; // Recupera o ID do livro do formulário
@@ -27,23 +36,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($resultVerificar) {
                 // If there is an open or returned loan, do not allow new loans or updates
                 if ($resultVerificar['status'] == 'em aberto'){
-                    echo "Você já tem um empréstimo em aberto. Não é permitido realizar novos empréstimos ou atualizações.";
+                    echo "<p class='mensagem-erro'>Você já tem um empréstimo em aberto. Não é permitido realizar novos empréstimos ou atualizações.</p>";
+                    echo '<a href= "index.php" class="link-voltar">Voltar</a>';
                 }; 
-                if ($resultVerificar['status'] == 'devolvido'){
+                if ($resultVerificar['status'] == 'devolvido') {
                     // Atualizar o status do empréstimo existente para 'em aberto' e calcular a data de devolução
                     $idEmprestimoExistente = $resultVerificar['id'];
-                    $sqlAtualizarStatus = "UPDATE emprestimos SET status = 'em aberto', dia_d = DATE_ADD(NOW(), INTERVAL 7 DAY), nome = (SELECT nome FROM usuarios WHERE id = ?) WHERE id = ?";
-
+                    $sqlAtualizarStatus = "UPDATE emprestimos 
+                                           SET status = 'em aberto', 
+                                               dia_d = DATE_ADD(NOW(), INTERVAL 7 DAY), 
+                                               nome = (SELECT nome FROM usuarios WHERE id = ?),
+                                               id_livro = ?
+                                           WHERE id = ?";
+                
                     $stmtAtualizarStatus = $pdo->prepare($sqlAtualizarStatus);
-                    $stmtAtualizarStatus->execute([$usuarioId, $idEmprestimoExistente]);
-
+                    $stmtAtualizarStatus->execute([$usuarioId, $_POST['livroId'], $idEmprestimoExistente]);
+                
                     // Registrar um novo registro no histórico
-                    $sqlHistorico = "INSERT INTO historico (id_usuario, id_livro, status, data_registro, data_devolucao) VALUES (?, ?, 'em aberto', NOW(), DATE_ADD(NOW(), INTERVAL 7 DAY))";
+                    $sqlHistorico = "INSERT INTO historico (id_usuario, id_livro, status, data_registro, data_devolucao) 
+                                     VALUES (?, ?, 'em aberto', NOW(), DATE_ADD(NOW(), INTERVAL 7 DAY))";
+                    
                     $stmtHistorico = $pdo->prepare($sqlHistorico);
-                    $stmtHistorico->execute([$usuarioId, $livroId]);
-
-                    echo "Vc emprestou um livro!";
+                    $stmtHistorico->execute([$usuarioId, $_POST['livroId']]); // Update here
+                
+                    echo "<p class='mensagem-sucesso'>Vc emprestou um livro!</p>";
+                    echo '<a href= "index.php" class="link-voltar">Voltar</a>';
                 }
+                
             } else {
                 // Inserir um novo empréstimo na tabela de empréstimos com status 'em aberto' e calcular a data de devolução
                 $sqlEmprestar = "INSERT INTO emprestimos (id_usuario, id_livro, status, dia_d, nome) VALUES (?, ?, 'em aberto', DATE_ADD(NOW(), INTERVAL 7 DAY), (SELECT nome FROM usuarios WHERE id = ?))";
@@ -56,7 +75,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $stmtHistorico = $pdo->prepare($sqlHistorico);
                 $stmtHistorico->execute([$usuarioId, $livroId]);
 
-                echo "Novo livro emprestado com sucesso!";
+                echo "<p class='mensagem-sucesso'>Novo livro emprestado com sucesso!</p>";
+                echo '<a href= "index.php" class="link-voltar">Voltar</a>';
             }
         } 
     } catch (PDOException $e) {
@@ -64,3 +84,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
+</body>
+</html>

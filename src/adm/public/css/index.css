@@ -1,0 +1,80 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #3498db; /* Cor de fundo azul */
+    color: #fff; /* Cor do texto branca */
+    overflow: hidden; /* Oculta barras de rolagem se o conteúdo for maior que a tela */
+    transition: background-color 0.5s; /* Adiciona uma transição suave para a mudança de cor de fundo */
+
+    /* Adiciona animação de fundo pulsante */
+    animation: pulsate 2s infinite alternate;
+}
+
+@keyframes pulsate {
+    from {
+        background-color: rgb(200, 233, 255); /* Cor inicial */
+    }
+    to {
+        background-color: #6acbff; /* Cor final */
+    }
+}
+
+#menu-container {
+    position: absolute;
+    text-align: center;
+    width: 200px;
+    top: 200px;
+}
+
+#options-container {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    z-index: 1;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+#options-container a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #333;
+    transition: background-color 0.3s;
+}
+
+#options-container a:hover {
+    background-color: #f0f0f0;
+}
+
+#menu-icon {
+    cursor: pointer;
+    padding: 10px;
+    background-color: #3498db;
+    color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s;
+}
+
+#menu-icon::before {
+    content: '\25BA';  /* Código Unicode para o triângulo direcional direito */
+    margin-right: 5px; /* Espaço entre o texto e o triângulo */
+    display: inline-block; /* Garante que o pseudo-elemento seja tratado como um elemento em linha */
+    transform-origin: center; /* Define o ponto de origem da transformação no centro */
+    transition: transform 0.3s; /* Adiciona a transição apenas para o pseudo-elemento */
+}
+
+#menu-container.clicked #menu-icon::before {
+    transform: rotate(90deg); /* Gira o triângulo quando o contêiner é clicado */
+}
+
