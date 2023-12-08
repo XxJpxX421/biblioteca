@@ -29,8 +29,8 @@ if (count($login) == 0) {
         echo '<td>' . $logins['nome'] . '</td>';
         echo '<td>' . $logins['email'] . '</td>';
         echo '<td>' . $logins['senha'] . '</td>';
-        echo "<td><a class='btn-editar' style='color:black;' href='../../../app/Controller/atualizar.php?id={$logins['id']}'>Atualizar</a></td>";
-echo "<td><a class='btn-excluir' style='color:black;' href='../../../app/Controller/deletar.php?id={$logins['id']}'>Deletar</a></td>";
+        echo "<td><a class='btn-editar' style='color:black;' href='../../../app/Controllers/atualizarl.php?id={$logins['id']}'>Atualizar</a></td>";
+echo "<td><a class='btn-excluir' style='color:black;' href='../../../app/Controllers/deletarl.php?id={$logins['id']}'>Deletar</a></td>";
         echo '</tr>';
     }
 

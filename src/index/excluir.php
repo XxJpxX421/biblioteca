@@ -20,11 +20,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['acao']) && $_POST['ac
             header("Location:index.php");
         } else {
             echo "A imagem não existe ou já foi excluída.";
+            header("Location:index.php");
         }
     } else {
         echo "Nenhuma imagem associada ao usuário.";
+        header("Location:index.php");
     }
 } else {
     echo "Ação inválida.";
+    header("Location:index.php");
 }
 ?>

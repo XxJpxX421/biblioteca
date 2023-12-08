@@ -11,6 +11,8 @@
         <div id="messages"></div>
         <input type="text" id="userInput" placeholder="Digite sua mensagem...">
         <button onclick="sendMessage()">Enviar</button>
+        <br><br>
+        <a href="index.php"><button class="b">Voltar</button></a>
     </div>
     <script src="public/js/chat.js"></script>
 </body>

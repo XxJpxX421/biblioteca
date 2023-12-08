@@ -70,7 +70,6 @@ if (isset($_SESSION['nome_arquivo'])) {
           <li><a href="index.php">Página Inicial</a></li>
           <li><a href="emprestimos.php">Empréstimos</a></li>
           <li><a href="pesquisa.php">Pesquisa</a></li>
-          <li><a href="contato.php">Contato</a></li>
           <li></li>
         </ul>
       </nav>
@@ -79,7 +78,7 @@ if (isset($_SESSION['nome_arquivo'])) {
 
    <div class="main-content">
     <div class= "barra"><marquee scrollamount= "40"><span>
-Compre livros agora!!</span></marquee>
+Empreste livros agora!!</span></marquee>
     </div>
     <input type="text" id="searchInput" class= "pesquisa" placeholder="Digite o nome...">
     <div class="sessoes">

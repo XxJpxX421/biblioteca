@@ -100,14 +100,13 @@ try {
           <li><a href="index.php">Página Inicial</a></li>
           <li><a href="emprestimos.php">Empréstimos</a></li>
           <li><a href="pesquisa.php">Pesquisa</a></li>
-          <li><a href="contato.php">Contato</a></li>
           <li></li>
         </ul>
       </nav>
    </aside>
    <div class="main-content">
     <div class= "barra"><marquee scrollamount= "40"><span>
-Compre livros agora!!</span></marquee>
+Empreste livros agora!!</span></marquee>
     </div>
 
 <h2>Livros Emprestados</h2>

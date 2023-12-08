@@ -21,7 +21,7 @@ if (count($emprestimo) == 0) {
     echo '<p>Nenhum empréstimo realizado</p>';
 } else {
     echo '<table border="1">';
-    echo '<thead><tr><th>Nome</th><th>Dia de Empréstimo</th><th>Dia de Devolução</th><th>Status</th><th colspan="2">Opções</th></tr></thead>';
+    echo '<thead><tr><th>Nome</th><th>Dia de Empréstimo</th><th>Dia de Devolução</th><th>Status</th></tr></thead>';
     echo '<tbody>';
 
     foreach ($emprestimo as $emprestimos) {
@@ -30,8 +30,6 @@ if (count($emprestimo) == 0) {
         echo '<td>' . date('d/m/Y', strtotime($emprestimos['dia_e'])) . '</td>';
         echo '<td>' . date('d/m/Y', strtotime($emprestimos['dia_d'])) . '</td>';
         echo '<td>' . $emprestimos['status'] . '</td>';
-        echo "<td><a class='btn-editar' style='color:black;' href='../../../app/Controller/atualizar.php?id={$emprestimos['id']}'>Atualizar</a></td>";
-echo "<td><a class='btn-excluir' style='color:black;' href='../../../app/Controller/deletar.php?id={$emprestimos['id']}'>Deletar</a></td>";
         echo '</tr>';
     }
 

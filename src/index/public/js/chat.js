@@ -2,18 +2,28 @@ function sendMessage() {
     const userInput = document.getElementById('userInput');
     const messagesContainer = document.getElementById('messages');
 
-    const userMessage = userInput.value;
-    if (userMessage.trim() === '') return;
+    const userMessage = userInput.value.trim().toLowerCase();
+    if (userMessage === '') return;
 
     appendMessage('Usuário', userMessage);
 
-    // Simule a resposta do chatbot (pode ser substituído por uma chamada a uma API de chatbot)
-    const botResponse = getBotResponse(userMessage);
-    appendMessage('LibraIntel', botResponse);
+    // Check if the user's message is a greeting or a specific question
+    if (userMessage === 'oi') {
+        const greetingResponse = 'Olá Usuário! Como você está?';
+        appendMessage('LibraIntel', greetingResponse);
+    } else if (userMessage === 'estou bem e você?') {
+        const response = 'Estou ótima, que bom que está bem! Como posso lhe ajudar?';
+        appendMessage('LibraIntel', response);
+    } else {
+        // Simulate the chatbot response (replace with actual chatbot logic)
+        const botResponse = getBotResponse(userMessage);
+        appendMessage('LibraIntel', botResponse);
+    }
 
-    // Limpa o campo de entrada
+    // Clear the input field
     userInput.value = '';
 }
+
 
 function appendMessage(sender, message) {
     const messagesContainer = document.getElementById('messages');
@@ -22,12 +32,11 @@ function appendMessage(sender, message) {
     messageElement.innerHTML = `<strong>${sender}:</strong> ${message}`;
     messagesContainer.appendChild(messageElement);
 
-    // Rola para baixo para exibir a última mensagem
+    // Scroll down to display the last message
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
 }
 
 function getBotResponse(userMessage) {
-    // Lógica do chatbot - aqui você pode usar uma API de chatbot, processamento de linguagem natural, etc.
-    // Neste exemplo, uma resposta simples é retornada.
-    return `Desculpe, não entendi sua pergunta. Na qual foi: " ${userMessage}"`;
+    // Chatbot logic - replace with your actual chatbot implementation
+    return `Desculpe, não entendi sua pergunta. Na qual foi: "${userMessage}"`;
 }
